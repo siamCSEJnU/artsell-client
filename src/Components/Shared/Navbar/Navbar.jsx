@@ -1,15 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Container from "../../Container/Container";
+import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
   const navOptions = (
     <>
-      <li>Home</li>
+      <NavLink
+        to="/"
+        className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+      >
+        <li>Home</li>
+      </NavLink>
       <li>Collection</li>
       <li>Contact</li>
       <li>About</li>
     </>
   );
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User has been signed out successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="text-slate-200 bg-slate-800">
       <Container>
@@ -49,9 +74,33 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <Link to="/login">
-              <button className="btn">Login/Register</button>
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <div
+                  className="lg:tooltip tooltip-top"
+                  data-tip={user.displayName}
+                >
+                  <img
+                    src={user.photoURL}
+                    className="rounded-full h-11 w-11"
+                    alt="userphoto"
+                  />
+                </div>
+
+                <button
+                  onClick={handleLogOut}
+                  className=" px-2 py-2 rounded-lg  bg-lime-600 border-emerald-600 text-base font-bold text-slate-800"
+                >
+                  LogOut
+                </button>
+              </div>
+            ) : (
+              <Link to="/login">
+                <button className=" px-2 py-2 rounded-lg  bg-lime-600 border-emerald-600 text-base font-bold text-slate-800">
+                  Login/Register
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </Container>

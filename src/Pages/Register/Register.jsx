@@ -3,9 +3,13 @@ import SectionTitle from "../../Components/Shared/SectionTitle/SectionTitle";
 import Container from "../../Components/Container/Container";
 import registerimage from "../../assets/register/register.jpg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ImSpinner3, ImSpinner4, ImSpinner5 } from "react-icons/im";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import useAuth from "../../Hooks/useAuth";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 const Register = () => {
   const {
     register,
@@ -14,6 +18,7 @@ const Register = () => {
     watch,
     reset,
   } = useForm();
+  const { loading, setLoading, createUser, updateUserProfile } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const handleTogglePassword = (field) => {
@@ -26,8 +31,36 @@ const Register = () => {
 
   const handleSignUp = (data) => {
     console.log(data);
-  };
+    console.log(data);
+    if (data.password !== data.confirm) {
+      return;
+    }
 
+    createUser(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+        reset();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User has been created successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        updateUserProfile(data.name, data.photoUrl)
+          .then(() => {
+            //
+          })
+          .catch((error) => {
+            setLoading(false);
+            toast.error(error.message, { autoClose: 1000 });
+          });
+      })
+      .catch((error) => {
+        setLoading(false);
+        toast.error(error.message, { autoClose: 1000 });
+      });
+  };
   return (
     <div>
       <Helmet>
@@ -99,8 +132,8 @@ const Register = () => {
                     className="px-3 py-1 w-full border-0 outline-0 rounded-md"
                     {...register("role")}
                   >
+                    <option value="user">User</option>
                     <option value="admin">Admin</option>
-                    <option value="user">user</option>
                     <option value="artist">Artist</option>
                   </select>
                 </div>
@@ -202,9 +235,16 @@ const Register = () => {
                 <div className="py-1">
                   <button
                     type="submit"
-                    className="btn w-full text-slate-200 bg-lime-600 border-lime-600"
+                    className="btn w-full  hover:bg-slate-800 hover:border-slate-800  text-slate-200 bg-lime-600 border-lime-600"
                   >
-                    Sign Up
+                    {loading ? (
+                      <ImSpinner4
+                        className="animate-spin m-0 text-slate-200"
+                        size={32}
+                      ></ImSpinner4>
+                    ) : (
+                      "Sign Up"
+                    )}
                   </button>
                 </div>
                 <p className="text-sm text-slate-200">

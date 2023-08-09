@@ -62,7 +62,10 @@ const Login = () => {
               Sign In
             </button>
             <p className="text-sm text-slate-200">
-              Don't Have Account? <Link className="text-lime-500">Sign Up</Link>{" "}
+              Don't Have Account?{" "}
+              <Link className="text-lime-500" to="/signup">
+                Sign Up
+              </Link>{" "}
               here
             </p>
             <SocialLogin> </SocialLogin>

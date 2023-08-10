@@ -4,13 +4,17 @@ import Container from "../../Components/Container/Container";
 import registerimage from "../../assets/register/register.jpg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ImSpinner3, ImSpinner4, ImSpinner5 } from "react-icons/im";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 const Register = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -39,17 +43,36 @@ const Register = () => {
     createUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
-        reset();
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "User has been created successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
         updateUserProfile(data.name, data.photoUrl)
           .then(() => {
-            //
+            const saveUser = {
+              userName: data.firstName + " " + data.lastName,
+              email: data.email,
+              photoURL: data.photoUrl,
+              role: data.role,
+            };
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(saveUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.insertedId) {
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User has been created successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  reset();
+                  //navigate
+                  navigate(from, { replace: true });
+                }
+              });
           })
           .catch((error) => {
             setLoading(false);
@@ -132,8 +155,7 @@ const Register = () => {
                     className="px-3 py-1 w-full border-0 outline-0 rounded-md"
                     {...register("role")}
                   >
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
+                    <option value="client">Client</option>
                     <option value="artist">Artist</option>
                   </select>
                 </div>

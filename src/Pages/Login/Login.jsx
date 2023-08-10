@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import SectionTitle from "../../Components/Shared/SectionTitle/SectionTitle";
 import login from "../../assets/login/login.jpg";
 import Container from "../../Components/Container/Container";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {
   ImSpinner10,
@@ -18,6 +18,11 @@ import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
   const [showPassword, setShowPassword] = useState(false);
   const { loading, setLoading, signIn } = useAuth();
   const {
@@ -36,6 +41,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         reset();
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         setLoading(false);

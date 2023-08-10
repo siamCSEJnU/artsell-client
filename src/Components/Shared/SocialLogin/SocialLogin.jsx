@@ -1,12 +1,35 @@
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 const SocialLogin = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
   const { setLoading, googleSignIn } = useAuth();
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        console.log(result);
+        const loggedInUser = result.user;
+        const saveUser = {
+          name: loggedInUser.displayName,
+          email: loggedInUser.email,
+          photoURL: loggedInUser.photoURL,
+          role: "client",
+        };
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveUser),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            //navigate
+            navigate(from, { replace: true });
+          });
       })
       .catch((error) => {
         setLoading(false);

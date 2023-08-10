@@ -13,9 +13,42 @@ const Navbar = () => {
       >
         <li>Home</li>
       </NavLink>
-      <li>Collection</li>
-      <li>Contact</li>
-      <li>About</li>
+      <NavLink
+        to="/"
+        className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+      >
+        <li>Artworks</li>
+      </NavLink>
+      <NavLink
+        // to="/"
+        className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+      >
+        <li>Paintings</li>
+      </NavLink>
+      <NavLink
+        // to="/"
+        className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+      >
+        <li>Design</li>
+      </NavLink>
+      <NavLink
+        // to="/"
+        className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+      >
+        <li>Handicrafts</li>
+      </NavLink>
+      <NavLink
+        // to="/"
+        className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+      >
+        <li>Photography</li>
+      </NavLink>
+      <NavLink
+        // to="/"
+        className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+      >
+        <li>Artists</li>
+      </NavLink>
     </>
   );
 
@@ -36,7 +69,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="text-slate-200 bg-slate-800">
+    <div className="text-slate-200 bg-slate-800 py-4">
       <Container>
         <div className="navbar ">
           <div className="navbar-start">
@@ -64,7 +97,7 @@ const Navbar = () => {
                 {navOptions}
               </ul>
             </div>
-            <Link className="text-4xl font-bold" to="/">
+            <Link className="text-5xl font-bold" to="/">
               Art<span className="text-lime-600">Sell</span>
             </Link>
           </div>
@@ -76,27 +109,35 @@ const Navbar = () => {
           <div className="navbar-end">
             {user ? (
               <div className="flex items-center gap-2">
-                <div
+                {/* <div
                   className="lg:tooltip tooltip-top"
                   data-tip={user.displayName}
-                >
-                  <img
-                    src={user.photoURL}
-                    className="rounded-full h-11 w-11"
-                    alt="userphoto"
-                  />
-                </div>
+                > */}
+                <Link to="/dashboard">
+                  <div
+                    className="tooltip"
+                    data-tip={user.displayName}
+                    data-place="top"
+                    data-multiline={false}
+                  >
+                    <img
+                      src={user.photoURL}
+                      className="rounded-full h-14 w-14"
+                      alt="userphoto"
+                    />
+                  </div>
+                </Link>
 
                 <button
                   onClick={handleLogOut}
-                  className=" px-2 py-2 rounded-lg  bg-lime-600 border-emerald-600 text-base font-bold text-slate-800"
+                  className=" px-3 py-2 rounded-lg  bg-lime-600 border-emerald-600  font-semibold text-slate-800"
                 >
                   LogOut
                 </button>
               </div>
             ) : (
               <Link to="/login">
-                <button className=" px-2 py-2 rounded-lg  bg-lime-600 border-emerald-600 text-base font-bold text-slate-800">
+                <button className=" px-3 py-2 rounded-lg  bg-lime-600 border-emerald-600  font-semibold text-slate-800">
                   Login/Register
                 </button>
               </Link>

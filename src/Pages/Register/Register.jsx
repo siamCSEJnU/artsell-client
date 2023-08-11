@@ -10,6 +10,9 @@ import { useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+
+const image_hosting_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
+
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,6 +25,9 @@ const Register = () => {
     watch,
     reset,
   } = useForm();
+
+  const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_token}`;
+
   const { loading, setLoading, createUser, updateUserProfile } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -40,48 +46,60 @@ const Register = () => {
       return;
     }
 
-    createUser(data.email, data.password)
-      .then((result) => {
-        console.log(result.user);
-        updateUserProfile(data.name, data.photoUrl)
-          .then(() => {
-            const saveUser = {
-              userName: data.firstName + " " + data.lastName,
-              email: data.email,
-              photoURL: data.photoUrl,
-              role: data.role,
-            };
-            fetch("http://localhost:5000/users", {
-              method: "POST",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify(saveUser),
+    const formData = new FormData();
+    formData.append("image", data.userPhoto[0]);
+    fetch(image_hosting_url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageResponse) => {
+        if (imageResponse.success) {
+          const photoURL = imageResponse.data.display_url;
+          createUser(data.email, data.password)
+            .then((result) => {
+              console.log(result.user);
+              updateUserProfile(data.name, photoURL)
+                .then(() => {
+                  const saveUser = {
+                    userName: data.firstName + " " + data.lastName,
+                    email: data.email,
+                    photoURL,
+                    role: data.role,
+                  };
+                  fetch("http://localhost:5000/users", {
+                    method: "POST",
+                    headers: {
+                      "content-type": "application/json",
+                    },
+                    body: JSON.stringify(saveUser),
+                  })
+                    .then((res) => res.json())
+                    .then((data) => {
+                      if (data.insertedId) {
+                        Swal.fire({
+                          position: "top-end",
+                          icon: "success",
+                          title: "User has been created successfully",
+                          showConfirmButton: false,
+                          timer: 1500,
+                        });
+                        reset();
+                        //navigate
+                        navigate(from, { replace: true });
+                      }
+                    });
+                })
+                .catch((error) => {
+                  setLoading(false);
+                  toast.error(error.message, { autoClose: 1000 });
+                });
             })
-              .then((res) => res.json())
-              .then((data) => {
-                if (data.insertedId) {
-                  Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "User has been created successfully",
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                  reset();
-                  //navigate
-                  navigate(from, { replace: true });
-                }
-              });
-          })
-          .catch((error) => {
-            setLoading(false);
-            toast.error(error.message, { autoClose: 1000 });
-          });
-      })
-      .catch((error) => {
-        setLoading(false);
-        toast.error(error.message, { autoClose: 1000 });
+            .catch((error) => {
+              setLoading(false);
+              toast.error(error.message, { autoClose: 1000 });
+            });
+        }
       });
   };
   return (
@@ -131,16 +149,19 @@ const Register = () => {
                 </div>
                 <div className="space-y-1">
                   <label
-                    htmlFor="photoUrl"
+                    htmlFor="userPhoto"
                     className="text-slate-200 font-semibold text-xl "
                   >
-                    Photo URL
+                    User's Photo
                   </label>
                   <input
-                    type="text"
-                    placeholder="Profile Photo Url"
-                    className="px-3 py-1 w-full border-0 outline-0 rounded-md"
-                    {...register("photoUrl")}
+                    type="file"
+                    id="userPhoto"
+                    placeholder="Drop your photo"
+                    className=" file-input w-full"
+                    {...register("userPhoto", {
+                      required: "userPhoto is required",
+                    })}
                   />
                 </div>
                 <div className="space-y-1">
@@ -157,6 +178,10 @@ const Register = () => {
                   >
                     <option value="client">Client</option>
                     <option value="artist">Artist</option>
+                    <option value="photographer">Photographer</option>
+                    <option value="designer">Designer</option>
+                    <option value="crafter">Crafter</option>
+                    <option value="sculptor">Sculptor</option>
                   </select>
                 </div>
                 <div className="space-y-1">

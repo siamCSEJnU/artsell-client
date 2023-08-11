@@ -280,6 +280,7 @@ const AddArts = () => {
             </label>
             <textarea
               type="text"
+              rows={4}
               placeholder="Describe about the artwork "
               className="w-full px-3 py-2 rounded-md border-0 outline-0 "
               {...register("description", {

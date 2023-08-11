@@ -27,7 +27,7 @@ const Dashboard = () => {
           </Link>
           <img
             style={{ width: "200px", height: "200px" }}
-            className="rounded-full mx-auto"
+            className="rounded-full mx-auto object-cover"
             src={user?.photoURL}
             alt=""
           />

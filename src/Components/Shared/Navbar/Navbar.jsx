@@ -122,7 +122,7 @@ const Navbar = () => {
                   >
                     <img
                       src={user.photoURL}
-                      className="rounded-full h-14 w-14"
+                      className="rounded-full object-cover h-14 w-14"
                       alt="userphoto"
                     />
                   </div>

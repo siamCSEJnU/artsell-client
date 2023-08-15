@@ -121,7 +121,7 @@ const Register = () => {
                   <div className="space-y-1">
                     <label
                       htmlFor="firstName"
-                      className="text-slate-200 font-semibold text-xl "
+                      className="text-slate-200 font-semibold text-lg "
                     >
                       First Name
                     </label>
@@ -135,7 +135,7 @@ const Register = () => {
                   <div className="space-y-1">
                     <label
                       htmlFor="lastName"
-                      className="text-slate-200 font-semibold text-xl "
+                      className="text-slate-200 font-semibold text-lg "
                     >
                       Last Name
                     </label>
@@ -150,7 +150,7 @@ const Register = () => {
                 <div className="space-y-1">
                   <label
                     htmlFor="userPhoto"
-                    className="text-slate-200 font-semibold text-xl "
+                    className="text-slate-200 font-semibold text-lg "
                   >
                     User's Photo
                   </label>
@@ -167,7 +167,7 @@ const Register = () => {
                 <div className="space-y-1">
                   <label
                     htmlFor="role"
-                    className="text-slate-200 font-semibold text-xl "
+                    className="text-slate-200 font-semibold text-lg "
                   >
                     User's Role
                   </label>
@@ -187,7 +187,7 @@ const Register = () => {
                 <div className="space-y-1">
                   <label
                     htmlFor="email"
-                    className="text-slate-200 font-semibold text-xl "
+                    className="text-slate-200 font-semibold text-lg "
                   >
                     Email
                   </label>
@@ -201,7 +201,7 @@ const Register = () => {
                 <div className="space-y-1 relative">
                   <label
                     htmlFor="password"
-                    className="text-slate-200 font-semibold text-xl "
+                    className="text-slate-200 font-semibold text-lg "
                   >
                     Password
                   </label>
@@ -250,7 +250,7 @@ const Register = () => {
                 <div className="space-y-1 relative">
                   <label
                     htmlFor="confirm"
-                    className="text-slate-200 font-semibold text-xl "
+                    className="text-slate-200 font-semibold text-lg "
                   >
                     Retype Password
                   </label>

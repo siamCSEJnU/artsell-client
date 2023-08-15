@@ -14,34 +14,40 @@ const Navbar = () => {
         <li>Home</li>
       </NavLink>
       <NavLink
-        to="/"
+        to="/allArtWorks"
         className={({ isActive }) => (isActive ? "text-lime-500" : "")}
       >
         <li>Artworks</li>
       </NavLink>
       <NavLink
-        // to="/"
+        to="/allPaintings"
         className={({ isActive }) => (isActive ? "text-lime-500" : "")}
       >
         <li>Paintings</li>
       </NavLink>
       <NavLink
-        // to="/"
+        to="/allDesigns"
         className={({ isActive }) => (isActive ? "text-lime-500" : "")}
       >
-        <li>Design</li>
+        <li>Designs</li>
       </NavLink>
       <NavLink
-        // to="/"
+        to="/allHandiCrafts"
         className={({ isActive }) => (isActive ? "text-lime-500" : "")}
       >
         <li>Handicrafts</li>
       </NavLink>
       <NavLink
-        // to="/"
+        to="/allPhotography"
         className={({ isActive }) => (isActive ? "text-lime-500" : "")}
       >
         <li>Photography</li>
+      </NavLink>
+      <NavLink
+        to="/allSculpture"
+        className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+      >
+        <li>Sculpture</li>
       </NavLink>
       <NavLink
         // to="/"

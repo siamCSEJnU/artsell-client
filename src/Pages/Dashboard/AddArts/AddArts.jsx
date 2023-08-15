@@ -43,6 +43,8 @@ const AddArts = () => {
             description,
             validity,
             category,
+            location,
+            size,
           } = data;
           const biddingPrices = [];
           const newArt = {
@@ -51,6 +53,8 @@ const AddArts = () => {
             base_price: parseFloat(basePrice),
             owner_name: ownerName,
             owner_email: ownerEmail,
+            owner_location: location,
+            art_size: size,
             date_of_upload: date,
             description,
             category,
@@ -91,8 +95,8 @@ const AddArts = () => {
         <title>ArtSell | Add-Arts</title>
       </Helmet>
       <SectionTitle heading={"Upload Your Artworks"}></SectionTitle>
-      <div className="bg-slate-300 p-5 w-2/3 mx-auto rounded-lg ">
-        <form onSubmit={handleSubmit(handleUploadArts)} className="space-y-4">
+      <div className="bg-slate-300 shadow-sm shadow-slate-200 p-5 w-2/3 mx-auto rounded-lg ">
+        <form onSubmit={handleSubmit(handleUploadArts)} className="space-y-2">
           <div className="flex justify-between ">
             <div className="space-y-1 w-2/5 ">
               <label
@@ -227,6 +231,52 @@ const AddArts = () => {
                   {errors.ownerEmail.message}
                 </p>
               )}
+            </div>
+          </div>
+          <div className="flex justify-between ">
+            <div className="w-2/5 space-y-1">
+              <label
+                htmlFor="ownerLocation"
+                className="text-lg font-semibold text-slate-800"
+              >
+                Owner's Location
+              </label>
+              <input
+                type="text"
+                list="locationSuggestions"
+                placeholder="Location of the owner"
+                className="w-full px-3 py-2 rounded-md border-0 outline-0"
+                {...register("location", {
+                  required: "Location is required",
+                })}
+              />
+              <datalist id="locationSuggestions">
+                <option value="United Kingdom" />
+                <option value="United States" />
+                <option value="Bangladesh" />
+                <option value="India" />
+                <option value="Australia" />
+                {/* Add more location suggestions as needed */}
+              </datalist>
+              {errors?.location && (
+                <p className="text-red-500 text-sm">
+                  {errors.location.message}
+                </p>
+              )}
+            </div>
+            <div className="w-2/5 space-y-1">
+              <label
+                htmlFor="artSize"
+                className="text-lg font-semibold text-slate-800"
+              >
+                Art's Size
+              </label>
+              <input
+                type="text"
+                placeholder="Size of the art"
+                className="w-full px-3 py-2 rounded-md border-0 outline-0"
+                {...register("size")}
+              />
             </div>
           </div>
           <div className="flex justify-between">

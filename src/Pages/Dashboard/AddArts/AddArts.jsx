@@ -46,7 +46,7 @@ const AddArts = () => {
             location,
             size,
           } = data;
-          const biddingPrices = [];
+          const bidding_info = [];
           const newArt = {
             art_name: title,
             art_img_url: imgURL,
@@ -60,7 +60,7 @@ const AddArts = () => {
             category,
             validity,
             bidding_status: "on",
-            bidding_prices: biddingPrices,
+            bidding_info,
             status: "pending",
           };
           console.log(newArt);

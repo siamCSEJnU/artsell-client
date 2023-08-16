@@ -1,7 +1,36 @@
 import ownerIcon from "../../assets/icons/owner.png";
 import priceIcon from "../../assets/icons/price.png";
 import categoryIcon from "../../assets/icons/category1.png";
+import Loader from "../../Components/Loader/Loader";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 const ArtItem = ({ item }) => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+  if (loading) {
+    return <Loader></Loader>;
+  }
+
+  const handleSelect = () => {
+    if (user) {
+      return navigate(`/allArtWorks/${item._id}`);
+    } else {
+      Swal.fire({
+        title: "Please login to select the Art",
+
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login Now!",
+      }).then((result) => {
+        if (result?.isConfirmed) {
+          navigate(`/allArtWorks/${item._id}`);
+        }
+      });
+    }
+  };
   const {
     art_name,
     art_img_url,
@@ -18,7 +47,7 @@ const ArtItem = ({ item }) => {
   } = item;
   return (
     <div>
-      <div className="bg-slate-200 group rounded-lg p-2 flex flex-col ">
+      <div className="bg-slate-200  group rounded-lg p-2 flex flex-col ">
         <div className="flex-grow space-y-1">
           <img
             src={art_img_url}
@@ -44,7 +73,10 @@ const ArtItem = ({ item }) => {
           </div>
         </div>
         <div>
-          <button className="btn w-full bg-slate-700 text-slate-200 hover:bg-orange-400">
+          <button
+            onClick={handleSelect}
+            className="btn w-full bg-slate-700 text-slate-200 hover:bg-orange-400"
+          >
             View Details
           </button>
         </div>

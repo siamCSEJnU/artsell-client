@@ -11,6 +11,9 @@ import AllDesigns from "../Pages/AllDesigns/AllDesigns";
 import AllHandiCrafts from "../Pages/AllHandiCrafts/AllHandiCrafts";
 import AllPhotography from "../Pages/AllPhotography/AllPhotography";
 import AllSculpture from "../Pages/AllSculptures/AllSculpture";
+import AllArtists from "../Pages/AllArtists/AllArtists";
+import SingleArtWork from "../Pages/SingleArtWork/SingleArtWork";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +55,18 @@ export const router = createBrowserRouter([
       {
         path: "/allSculpture",
         element: <AllSculpture></AllSculpture>,
+      },
+      {
+        path: "/allArtists",
+        element: <AllArtists></AllArtists>,
+      },
+      {
+        path: "/allArtWorks/:id",
+        element: (
+          <PrivateRoute>
+            <SingleArtWork></SingleArtWork>
+          </PrivateRoute>
+        ),
       },
     ],
   },

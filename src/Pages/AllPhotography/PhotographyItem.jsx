@@ -2,7 +2,36 @@ import photographer from "../../assets/icons/photographar1.png";
 import bid from "../../assets/icons/bid1.png";
 import size from "../../assets/icons/size1.png";
 import React from "react";
+import useAuth from "../../Hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import Loader from "../../Components/Loader/Loader";
+import Swal from "sweetalert2";
 const PhotographyItem = ({ item }) => {
+  const { user, loading } = useAuth();
+  const navigate = useNavigate();
+  if (loading) {
+    return <Loader></Loader>;
+  }
+
+  const handleSelect = () => {
+    if (user) {
+      return navigate(`/allArtWorks/${item._id}`);
+    } else {
+      Swal.fire({
+        title: "Please login to select the Art",
+
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login Now!",
+      }).then((result) => {
+        if (result?.isConfirmed) {
+          navigate(`/allArtWorks/${item._id}`);
+        }
+      });
+    }
+  };
   return (
     <div className="bg-orange-300  flex flex-col rounded-md p-2 space-y-2">
       <div className="flex-grow space-y-1">
@@ -32,7 +61,10 @@ const PhotographyItem = ({ item }) => {
         </div>
       </div>
       <div className="pt-2 pb-1">
-        <button className="w-full btn border-0 outline-0 bg-slate-700 hover:bg-orange-500 text-slate-200">
+        <button
+          onClick={handleSelect}
+          className="w-full btn border-0 outline-0 bg-slate-700 hover:bg-orange-500 text-slate-200"
+        >
           select for BIDding
         </button>
       </div>

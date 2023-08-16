@@ -41,7 +41,6 @@ const Register = () => {
 
   const handleSignUp = (data) => {
     console.log(data);
-    console.log(data);
     if (data.password !== data.confirm) {
       return;
     }
@@ -59,7 +58,7 @@ const Register = () => {
           createUser(data.email, data.password)
             .then((result) => {
               console.log(result.user);
-              updateUserProfile(data.name, photoURL)
+              updateUserProfile(data.firstName + " " + data.lastName, photoURL)
                 .then(() => {
                   const saveUser = {
                     userName: data.firstName + " " + data.lastName,

@@ -8,6 +8,7 @@ import useAllArtWorks from "../../Hooks/useAllArtWorks";
 
 const AllSculpture = () => {
   const [allArtWorks, isLoading] = useAllArtWorks();
+
   if (isLoading) {
     return <Loader></Loader>;
   }

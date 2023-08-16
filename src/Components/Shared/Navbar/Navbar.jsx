@@ -50,7 +50,7 @@ const Navbar = () => {
         <li>Sculpture</li>
       </NavLink>
       <NavLink
-        // to="/"
+        to="/allArtists"
         className={({ isActive }) => (isActive ? "text-lime-500" : "")}
       >
         <li>Artists</li>

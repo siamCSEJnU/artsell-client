@@ -1,19 +1,20 @@
+import React from "react";
+import useAuth from "../Hooks/useAuth";
+import useArtist from "../Hooks/useArtist";
 import { Navigate, useLocation } from "react-router-dom";
 import Loader from "../Components/Loader/Loader";
-import useAuth from "../Hooks/useAuth";
-import useClient from "../Hooks/useClient";
 
-const ClientRoute = ({ children }) => {
+const ArtistRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  const [isClient, isClientLoading] = useClient();
+  const [isArtist, isArtistLoading] = useArtist();
   const location = useLocation();
-  if (loading || isClientLoading) {
+  if (loading || isArtistLoading) {
     return <Loader></Loader>;
   }
-  if (user && isClient) {
+  if (user && isArtist) {
     return children;
   }
   return <Navigate to="/" state={{ from: location }} replace></Navigate>;
 };
 
-export default ClientRoute;
+export default ArtistRoute;

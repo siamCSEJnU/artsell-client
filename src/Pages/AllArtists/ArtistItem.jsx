@@ -3,7 +3,7 @@ import useAllArtWorks from "../../Hooks/useAllArtWorks";
 const ArtistItem = ({ item }) => {
   const [allArtWorks, isLoading] = useAllArtWorks();
 
-  console.log(item);
+  // console.log(item);
   //   console.log(allArtWorks);
   const artWorks = allArtWorks.filter((art) => art.owner_email == item.email);
   //   console.log(artWork);

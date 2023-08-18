@@ -14,6 +14,8 @@ import AllSculpture from "../Pages/AllSculptures/AllSculpture";
 import AllArtists from "../Pages/AllArtists/AllArtists";
 import SingleArtWork from "../Pages/SingleArtWork/SingleArtWork";
 import PrivateRoute from "./PrivateRoute";
+import ClientRoute from "./ClientRoute";
+import MyArts from "../Pages/Dashboard/MyArts/MyArts";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +79,10 @@ export const router = createBrowserRouter([
       {
         path: "addArts",
         element: <AddArts></AddArts>,
+      },
+      {
+        path: "myArts",
+        element: <MyArts></MyArts>,
       },
     ],
   },

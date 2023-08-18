@@ -121,14 +121,12 @@ const Navbar = () => {
                 > */}
                 <Link to="/dashboard">
                   <div
-                    className="tooltip"
+                    className="lg:tooltip tooltip-top "
                     data-tip={user.displayName}
-                    data-place="top"
-                    data-multiline={false}
                   >
                     <img
                       src={user.photoURL}
-                      className="rounded-full object-cover h-14 w-14"
+                      className="rounded-full object-cover h-14 w-14 "
                       alt="userphoto"
                     />
                   </div>

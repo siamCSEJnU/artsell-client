@@ -33,7 +33,7 @@ const AddArts = () => {
       .then((imageResponse) => {
         if (imageResponse.success) {
           const imgURL = imageResponse.data.display_url;
-          console.log(imgURL);
+          // console.log(imgURL);
           const {
             title,
             basePrice,
@@ -63,7 +63,7 @@ const AddArts = () => {
             bidding_info,
             status: "pending",
           };
-          console.log(newArt);
+          // console.log(newArt);
 
           fetch("http://localhost:5000/allArtWorks", {
             method: "POST",
@@ -92,9 +92,9 @@ const AddArts = () => {
   return (
     <div>
       <Helmet>
-        <title>ArtSell | Add-Arts</title>
+        <title>ArtSell |Dashboard | Add-Arts</title>
       </Helmet>
-      <SectionTitle heading={"Upload Your Artworks"}></SectionTitle>
+      <SectionTitle heading={"Upload Your Artworks !"}></SectionTitle>
       <div className="bg-slate-300 shadow-sm shadow-slate-200 p-5 w-2/3 mx-auto rounded-lg ">
         <form onSubmit={handleSubmit(handleUploadArts)} className="space-y-2">
           <div className="flex justify-between ">

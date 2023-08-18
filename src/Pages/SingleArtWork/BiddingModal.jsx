@@ -4,7 +4,7 @@ import auction from "../../assets/icons/bid2.png";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { ImSpinner4 } from "react-icons/im";
-const BiddingModal = ({ visibile, handleOnClose, selectedArt, user }) => {
+const BiddingModal = ({ visible, handleOnClose, selectedArt, user }) => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const {
     register,
@@ -12,9 +12,9 @@ const BiddingModal = ({ visibile, handleOnClose, selectedArt, user }) => {
     formState: { errors },
     reset,
   } = useForm();
-  console.log(selectedArt);
+  // console.log(selectedArt);
 
-  if (!visibile) return null;
+  if (!visible) return null;
 
   const handleSubmitAmount = (data) => {
     setSubmitLoading(true);

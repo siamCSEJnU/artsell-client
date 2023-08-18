@@ -32,11 +32,17 @@ const Dashboard = () => {
             alt=""
           />
           <div>
-            <NavLink>
+            <NavLink
+              to="/dashboard/myArts"
+              className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+            >
               {" "}
               <h3 className="flex justify-center pt-5">My Arts</h3>
             </NavLink>
-            <NavLink to="/dashboard/addArts">
+            <NavLink
+              to="/dashboard/addArts"
+              className={({ isActive }) => (isActive ? "text-lime-500" : "")}
+            >
               {" "}
               <h3 className="flex justify-center py-5">Add Arts</h3>
             </NavLink>

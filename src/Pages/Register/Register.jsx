@@ -40,7 +40,7 @@ const Register = () => {
   };
 
   const handleSignUp = (data) => {
-    console.log(data);
+    // console.log(data);
     if (data.password !== data.confirm) {
       return;
     }

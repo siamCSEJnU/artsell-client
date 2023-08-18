@@ -39,14 +39,14 @@ const Login = () => {
   const handleLogin = (data) => {
     signIn(data.email, data.password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         reset();
         navigate(from, { replace: true });
       })
       .catch((error) => {
         setLoading(false);
         toast.error(error.message);
-        console.log(error);
+        // console.log(error);
       });
   };
   return (

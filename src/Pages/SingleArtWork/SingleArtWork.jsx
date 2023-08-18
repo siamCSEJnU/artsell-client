@@ -14,12 +14,12 @@ import Loader from "../../Components/Loader/Loader";
 import SingleArtSlider from "./SingleArtSlider";
 import BiddingModal from "./BiddingModal";
 import useAuth from "../../Hooks/useAuth";
-import useClient from "../../Hooks/useClient";
+import useAdmin from "../../Hooks/useAdmin";
 
 const SingleArtWork = () => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [isClient] = useClient();
+  const [isAdmin] = useAdmin();
   const { user } = useAuth();
 
   const handleOnClose = () => {
@@ -35,7 +35,7 @@ const SingleArtWork = () => {
 
   const selectedArt = allArtWorks?.find((item) => item?._id == id);
   const bidders = selectedArt?.bidding_info;
-  console.log(bidders);
+  // console.log(bidders);
   const selectedOwnerPhoto =
     !isLoadingUsers &&
     selectedArt &&
@@ -49,7 +49,7 @@ const SingleArtWork = () => {
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
-  console.log(selectedArt);
+  // console.log(selectedArt);
 
   return (
     <Container>
@@ -73,9 +73,9 @@ const SingleArtWork = () => {
             </div>
           </div>
           <div className="text-slate-100 space-y-3 w-1/2">
-            <div className=" flex gap-5 items-center ">
+            <div className=" ">
               <h2 className="text-3xl">{selectedArt?.art_name}</h2>
-              <h3 className="text-sm pt-2">({selectedArt?.date_of_upload})</h3>
+              <h3 className="text-sm pt-1">({selectedArt?.date_of_upload})</h3>
             </div>
             <div className="flex items-center gap-3 ">
               <img
@@ -129,20 +129,20 @@ const SingleArtWork = () => {
                   disabled={
                     selectedArt.validity === 0 ||
                     selectedArt.bidding_status == "off" ||
-                    !isClient
+                    isAdmin
                   }
                   onClick={() => setShowModal(true)}
                   className={` px-2 py-1 rounded-md bg-lime-600   font-semibold text-slate-900 ${
                     selectedArt.validity === 0 ||
                     selectedArt.bidding_status == "off" ||
-                    !isClient
+                    isAdmin
                       ? "bg-opacity-50"
                       : " hover:bg-slate-200 "
                   }`}
                 >
                   {selectedArt.validity === 0 ||
                   selectedArt.bidding_status == "off" ||
-                  !isClient
+                  isAdmin
                     ? "Unavailable"
                     : "BID"}
                 </button>
@@ -178,21 +178,21 @@ const SingleArtWork = () => {
             </div>
             <BiddingModal
               handleOnClose={handleOnClose}
-              visibile={showModal}
+              visible={showModal}
               selectedArt={selectedArt}
               user={user}
             ></BiddingModal>
           </div>
         </div>
         <div className="mt-12 ">
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex items-center justify-center gap-3    ">
             <img
               src={selectedOwnerPhoto}
-              className="h-20 w-20  rounded-full object-cover"
+              className="h-16 w-16 rounded-full   object-cover"
               alt=""
             />
-            <h2 className="text-2xl text-slate-800 font-semibold">
-              More From {selectedArt.owner_name}
+            <h2 className="text-2xl text-slate-800 font-semibold  ">
+              More From {selectedArt.owner_name}{" "}
             </h2>
           </div>
           <div>

@@ -14,8 +14,14 @@ import AllSculpture from "../Pages/AllSculptures/AllSculpture";
 import AllArtists from "../Pages/AllArtists/AllArtists";
 import SingleArtWork from "../Pages/SingleArtWork/SingleArtWork";
 import PrivateRoute from "./PrivateRoute";
+import ArtistRoute from "./ArtistRoute";
 import ClientRoute from "./ClientRoute";
+import AdminRoute from "./AdminRoute";
 import MyArts from "../Pages/Dashboard/MyArts/MyArts";
+import ManageArts from "../Pages/Dashboard/ManageArts/MangeArts";
+import ManageUsers from "../Pages/Dashboard/ManageUsers/MangeUsers";
+import BiddedArts from "../Pages/Dashboard/BiddedArts/BiddedArts";
+import SingleArtist from "../Pages/SingleArtist/SingleArtist";
 
 export const router = createBrowserRouter([
   {
@@ -70,19 +76,63 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/allArtists/:id",
+        element: (
+          <PrivateRoute>
+            <SingleArtist></SingleArtist>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "addArts",
-        element: <AddArts></AddArts>,
+        element: (
+          <ArtistRoute>
+            <AddArts></AddArts>
+          </ArtistRoute>
+        ),
       },
       {
         path: "myArts",
-        element: <MyArts></MyArts>,
+        element: (
+          <ArtistRoute>
+            <MyArts></MyArts>
+          </ArtistRoute>
+        ),
+      },
+      {
+        path: "manageArts",
+        element: (
+          <AdminRoute>
+            <ManageArts></ManageArts>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manageUsers",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "biddedArts",
+        element: (
+          <ClientRoute>
+            <BiddedArts></BiddedArts>
+          </ClientRoute>
+        ),
       },
     ],
   },

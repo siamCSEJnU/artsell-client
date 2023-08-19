@@ -12,9 +12,9 @@ const AllPaintings = () => {
     return <Loader></Loader>;
   }
 
-  const renderedPaintings = allArtWorks?.filter(
-    (item) => item.category == "paintings"
-  );
+  const renderedPaintings = allArtWorks
+    ?.filter((art) => art.status == "accepted")
+    ?.filter((item) => item.category == "paintings");
   //   console.log(renderedPaintings);
   return (
     <div>

@@ -13,7 +13,7 @@ const AllArtists = () => {
   const renderedArtists = allUsers.filter(
     (item) => item.role !== "client" && item.role !== "admin"
   );
-  console.log(renderedArtists);
+  // console.log(renderedArtists);
   return (
     <div>
       <Helmet>

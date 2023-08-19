@@ -13,9 +13,9 @@ const AllHandiCrafts = () => {
     return <Loader></Loader>;
   }
 
-  const renderedHandiCrafts = allArtWorks?.filter(
-    (item) => item.category == "handicrafts"
-  );
+  const renderedHandiCrafts = allArtWorks
+    ?.filter((art) => art.status == "accepted")
+    ?.filter((item) => item.category == "handicrafts");
   return (
     <div>
       <Helmet>

@@ -13,9 +13,9 @@ const AllSculpture = () => {
     return <Loader></Loader>;
   }
 
-  const renderedSculpture = allArtWorks?.filter(
-    (item) => item.category == "scultpure"
-  );
+  const renderedSculpture = allArtWorks
+    ?.filter((art) => art.status == "accepted")
+    ?.filter((item) => item.category == "scultpure");
   return (
     <div>
       <Helmet>

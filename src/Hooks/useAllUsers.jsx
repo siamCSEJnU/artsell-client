@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 const useAllUsers = () => {
-  const { data: allUsers = [], isLoading: isLoadingUsers } = useQuery(
-    ["allUsers"],
-    async () => {
-      const response = await fetch("http://localhost:5000/allUsers");
-      return response.json();
-    }
-  );
-  return [allUsers, isLoadingUsers];
+  const {
+    data: allUsers = [],
+    isLoading: isLoadingUsers,
+    refetch,
+  } = useQuery(["allUsers"], async () => {
+    const response = await fetch("http://localhost:5000/allUsers");
+    return response.json();
+  });
+  return [allUsers, isLoadingUsers, refetch];
 };
 
 export default useAllUsers;

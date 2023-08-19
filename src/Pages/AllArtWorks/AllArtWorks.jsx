@@ -19,8 +19,8 @@ const AllArtWorks = () => {
   const handleToggleShowAll = () => {
     setShowAll(!showAll);
   };
-
-  const renderedArtWorks = showAll ? allArtWorks : allArtWorks.slice(0, 12);
+  const validArtWorks = allArtWorks.filter((item) => item.status == "accepted");
+  const renderedArtWorks = showAll ? validArtWorks : validArtWorks.slice(0, 12);
 
   return (
     <div>

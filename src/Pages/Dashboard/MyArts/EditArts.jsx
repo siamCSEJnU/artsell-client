@@ -18,7 +18,7 @@ const EditArts = ({ artWork, visible, handleEditModalClsoe }) => {
       owner_email: event.target.ownerEmail.value,
       owner_location: event.target.location.value,
       art_size: event.target.size.value,
-      date_of_upload: event.target.date.value,
+      bidding_status: event.target.biddingStatus.value,
       description: event.target.description.value,
       validity: parseInt(event.target.validity.value),
     };
@@ -168,16 +168,16 @@ const EditArts = ({ artWork, visible, handleEditModalClsoe }) => {
           <div className="flex justify-between">
             <div className="space-y-1 w-2/5">
               <label
-                htmlFor="date"
+                htmlFor="biddingStatus"
                 className="text-lg font-semibold text-slate-800 border-0 outline-0"
               >
-                Date
+                Bidding Status
               </label>
               <input
-                type="date"
-                name="date"
-                defaultValue={artWork.date_of_upload}
-                placeholder="Date of uplodaing"
+                type="text"
+                name="biddingStatus"
+                defaultValue={artWork.bidding_status}
+                placeholder="Bidding Status"
                 className="w-full px-3 py-2 rounded-md border-0 outline-0"
               />
             </div>

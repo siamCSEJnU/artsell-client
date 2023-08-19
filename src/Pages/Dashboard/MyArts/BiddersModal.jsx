@@ -4,7 +4,7 @@ const BiddersModal = ({ visible, handleOnClose, bidders }) => {
   if (!visible) return null;
 
   return (
-    <div className="fixed bg-slate-950 bg-opacity-30 text-slate-200 py-3 px-5 rounded-md top-24 right-16 pb-8  mr-16  ">
+    <div className="fixed bg-slate-950 bg-opacity-95 text-slate-200 py-3 px-5 rounded-md top-24 right-16 pb-8  mr-16  ">
       <div>
         <div className="text-center">
           <button onClick={handleOnClose}>
@@ -19,7 +19,7 @@ const BiddersModal = ({ visible, handleOnClose, bidders }) => {
                 <div className="flex items-center gap-2">
                   <img
                     src={item.bidder_img}
-                    className="h-12 w-12 rounded-full object-cover"
+                    className="h-12 w-12 rounded-lg object-cover"
                     alt=""
                   />
                   <div>

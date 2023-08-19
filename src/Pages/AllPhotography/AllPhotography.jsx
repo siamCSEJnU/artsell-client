@@ -14,9 +14,9 @@ const AllPhotography = () => {
     return <Loader></Loader>;
   }
 
-  const renderedPhotography = allArtWorks?.filter(
-    (item) => item.category == "photography"
-  );
+  const renderedPhotography = allArtWorks
+    ?.filter((art) => art.status == "accepted")
+    ?.filter((item) => item.category == "photography");
   return (
     <div>
       <Helmet>

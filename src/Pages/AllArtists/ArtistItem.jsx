@@ -1,7 +1,39 @@
+import { useEffect, useState } from "react";
 import useAllArtWorks from "../../Hooks/useAllArtWorks";
+import useAuth from "../../Hooks/useAuth";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const ArtistItem = ({ item }) => {
   const [allArtWorks, isLoading] = useAllArtWorks();
+  const [isFollowing, setIsFollowing] = useState(false);
+  const { user } = useAuth();
+  useEffect(() => {
+    if (item?.followers) {
+      setIsFollowing(item?.followers?.includes(user?.email));
+    }
+  }, [item?.followers, user?.email]);
+
+  const handleFollowUnfollow = (action, artistId) => {
+    fetch(
+      `http://localhost:5000/followers/${action}/${artistId}/${user?.email}`,
+      {
+        method: "PATCH",
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success(`${action}ed successfully`, {
+            autoClose: 1000,
+            position: "top-center",
+            theme: "dark",
+          });
+          // Update isFollowing state
+          setIsFollowing(!isFollowing);
+        }
+      });
+  };
 
   // console.log(item);
   //   console.log(allArtWorks);
@@ -34,13 +66,24 @@ const ArtistItem = ({ item }) => {
       </div>
 
       <div className="flex justify-between p-2">
-        <button className="rounded-lg  bg-slate-300 border-emerald-600  font-semibold text-slate-800 px-2 py-1 ">
-          + Follow
+        <button
+          onClick={() =>
+            handleFollowUnfollow(isFollowing ? "unfollow" : "follow", item._id)
+          }
+          className={`tooltip tooltip-top rounded-lg ${
+            isFollowing ? "bg-slate-300" : "bg-lime-600"
+          } border-emerald-600 font-semibold text-slate-800 px-2 py-1`}
+          data-tip={isFollowing ? "Unfollow" : "Follow"}
+        >
+          {isFollowing ? "Unfollow" : "Follow"}
         </button>
-        <button className="rounded-lg  bg-lime-600 border-emerald-600  font-semibold text-slate-800 px-2 py-1">
+        <Link to={`/allArtists/${item._id}`}>
           {" "}
-          See Details
-        </button>
+          <button className="rounded-lg  bg-lime-600 border-emerald-600  font-semibold text-slate-800 px-2 py-1">
+            {" "}
+            See Details
+          </button>
+        </Link>
       </div>
     </div>
   );

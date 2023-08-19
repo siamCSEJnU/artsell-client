@@ -12,9 +12,9 @@ const AllDesigns = () => {
     return <Loader></Loader>;
   }
 
-  const renderedDesigns = allArtWorks?.filter(
-    (item) => item.category == "designs"
-  );
+  const renderedDesigns = allArtWorks
+    ?.filter((art) => art.status == "accepted")
+    ?.filter((item) => item.category == "designs");
   return (
     <div>
       <Helmet>

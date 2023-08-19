@@ -10,6 +10,7 @@ import { useState } from "react";
 import BiddersModal from "./BiddersModal";
 import EditArts from "./EditArts";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyArts = () => {
   const { user, loading } = useAuth();
@@ -95,6 +96,7 @@ const MyArts = () => {
               <th>#</th>
               <th>Arts</th>
               <th>Validity/days</th>
+              <th>Status</th>
               <th>Base Price</th>
               <th>Bidding Status</th>
               <th>Best Price</th>
@@ -108,21 +110,43 @@ const MyArts = () => {
               <tr key={item._id}>
                 <td className="text-lg font-semibold">{index + 1}</td>
                 <td>
-                  <div className="flex items-center gap-2">
-                    <img
-                      src={item?.art_img_url}
-                      className="h-14 w-14 object-cover rounded-full"
-                      alt=""
-                    />
-                    <div className="text-lg font-semibold">
-                      <h2>{item?.art_name}</h2>
+                  <Link to={`/allArtWorks/${item._id}`}>
+                    {" "}
+                    <div className="flex  items-center gap-3">
+                      <img
+                        src={item?.art_img_url}
+                        className="h-14 w-14 object-cover rounded-lg"
+                        alt=""
+                      />
+                      <div className="text-lg font-semibold">
+                        <h2>{item?.art_name}</h2>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </td>
 
                 <td className="text-lg">{item?.validity}</td>
+                <td
+                  className={`font-semibold text-lg ${
+                    item.status == "accepted"
+                      ? "text-indigo-500"
+                      : item.status == "pending"
+                      ? "text-green-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {item?.status}
+                </td>
                 <td className="text-lg">${item?.base_price}</td>
-                <td className="text-lg">{item?.bidding_status}</td>
+                <td
+                  className={`text-lg ${
+                    item?.bidding_status == "on"
+                      ? "text-green-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {item?.bidding_status}
+                </td>
                 <td className="text-lg">
                   {item && item.bidding_info && item.bidding_info.length > 0
                     ? `$${Math.max(

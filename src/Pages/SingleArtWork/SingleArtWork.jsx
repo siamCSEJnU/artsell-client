@@ -14,12 +14,13 @@ import Loader from "../../Components/Loader/Loader";
 import SingleArtSlider from "./SingleArtSlider";
 import BiddingModal from "./BiddingModal";
 import useAuth from "../../Hooks/useAuth";
-import useAdmin from "../../Hooks/useAdmin";
+import useClient from "../../Hooks/useClient";
 
 const SingleArtWork = () => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [isAdmin] = useAdmin();
+
+  const [isClient] = useClient();
   const { user } = useAuth();
 
   const handleOnClose = () => {
@@ -129,20 +130,22 @@ const SingleArtWork = () => {
                   disabled={
                     selectedArt.validity === 0 ||
                     selectedArt.bidding_status == "off" ||
-                    isAdmin
+                    !isClient
                   }
                   onClick={() => setShowModal(true)}
                   className={` px-2 py-1 rounded-md bg-lime-600   font-semibold text-slate-900 ${
-                    selectedArt.validity === 0 ||
-                    selectedArt.bidding_status == "off" ||
-                    isAdmin
+                    selectedArt?.validity === 0 ||
+                    selectedArt?.bidding_status == "off" ||
+                    !isClient ||
+                    selectedArt?.status == "denied"
                       ? "bg-opacity-50"
                       : " hover:bg-slate-200 "
                   }`}
                 >
-                  {selectedArt.validity === 0 ||
-                  selectedArt.bidding_status == "off" ||
-                  isAdmin
+                  {selectedArt?.validity === 0 ||
+                  selectedArt?.bidding_status == "off" ||
+                  !isClient ||
+                  selectedArt?.status == "denied"
                     ? "Unavailable"
                     : "BID"}
                 </button>

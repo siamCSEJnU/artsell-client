@@ -14,8 +14,8 @@ import {
 export const AuthContext = createContext();
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
 
   const createUser = (email, password) => {
@@ -48,12 +48,12 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        setLoading(false);
-        //
+        setUser(currentUser);
       } else {
         //
-        setLoading(false);
+        setUser(null);
       }
+      setLoading(false);
     });
     return () => {
       return unsubscribe();

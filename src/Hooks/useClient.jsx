@@ -9,7 +9,7 @@ const useClient = () => {
     enabled: !loading,
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/users/client/${user?.email}`
+        `https://artsell-server-siamcsejnu.vercel.app/users/client/${user?.email}`
       );
       const data = await res.json();
       return data.client;

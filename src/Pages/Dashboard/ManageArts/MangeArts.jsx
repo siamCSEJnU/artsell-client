@@ -21,9 +21,12 @@ const MangeArts = () => {
       confirmButtonText: "Yes, Accept!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/allArtWorks/accept/${id}`, {
-          method: "PATCH",
-        })
+        fetch(
+          `https://artsell-server-siamcsejnu.vercel.app/allArtWorks/accept/${id}`,
+          {
+            method: "PATCH",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount) {
@@ -51,9 +54,12 @@ const MangeArts = () => {
       confirmButtonText: "Yes, Reject!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/allArtWorks/reject/${id}`, {
-          method: "PATCH",
-        })
+        fetch(
+          `https://artsell-server-siamcsejnu.vercel.app/allArtWorks/reject/${id}`,
+          {
+            method: "PATCH",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount) {

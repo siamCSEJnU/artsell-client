@@ -5,7 +5,9 @@ const useAllUsers = () => {
     isLoading: isLoadingUsers,
     refetch,
   } = useQuery(["allUsers"], async () => {
-    const response = await fetch("http://localhost:5000/allUsers");
+    const response = await fetch(
+      "https://artsell-server-siamcsejnu.vercel.app/allUsers"
+    );
     return response.json();
   });
   return [allUsers, isLoadingUsers, refetch];

@@ -29,7 +29,7 @@ const AllArtWorks = () => {
       </Helmet>
       <SectionTitle heading={"All Artworks"}></SectionTitle>
       <Container>
-        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-10 pt-4 ">
+        <div className="grid  md:grid-cols-3 lg:grid-cols-4 gap-10 pt-4 ">
           {renderedArtWorks.map((item) => (
             <ArtItem key={item._id} item={item}></ArtItem>
           ))}

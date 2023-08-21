@@ -4,7 +4,13 @@ import auction from "../../assets/icons/bid2.png";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { ImSpinner4 } from "react-icons/im";
-const BiddingModal = ({ visible, handleOnClose, selectedArt, user }) => {
+const BiddingModal = ({
+  visible,
+  handleOnClose,
+  selectedArt,
+  user,
+  refetch,
+}) => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const {
     register,
@@ -26,17 +32,21 @@ const BiddingModal = ({ visible, handleOnClose, selectedArt, user }) => {
       bidder_location,
       bidding_amount,
     };
-    fetch(`http://localhost:5000/updateBiddingInfo/${selectedArt._id}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updateBiddingInfo),
-    })
+    fetch(
+      `https://artsell-server-siamcsejnu.vercel.app/updateBiddingInfo/${selectedArt._id}`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updateBiddingInfo),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
           reset();
+          refetch();
           setSubmitLoading(false);
           handleOnClose();
           toast.success("Bidding Info updated successfuly", {

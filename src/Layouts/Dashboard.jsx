@@ -50,7 +50,9 @@ const Dashboard = () => {
               alt=""
             />
             <h2 className="text-center text-2xl text-slate-100 py-2">
-              {user && currentUser && currentUser.userName}
+              {(user && currentUser && currentUser?.userName) ||
+                currentUser?.displayName ||
+                currentUser?.name}
             </h2>
             {/* <hr /> */}
             <div>

@@ -18,7 +18,7 @@ const SocialLogin = () => {
           photoURL: loggedInUser.photoURL,
           role: "client",
         };
-        fetch("http://localhost:5000/users", {
+        fetch("https://artsell-server-siamcsejnu.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

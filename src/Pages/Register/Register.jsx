@@ -66,7 +66,7 @@ const Register = () => {
                     photoURL,
                     role: data.role,
                   };
-                  fetch("http://localhost:5000/users", {
+                  fetch("https://artsell-server-siamcsejnu.vercel.app/users", {
                     method: "POST",
                     headers: {
                       "content-type": "application/json",

@@ -6,7 +6,9 @@ const useAllArtWorks = () => {
     isLoading,
     refetch,
   } = useQuery(["allArtWorks"], async () => {
-    const response = await fetch("http://localhost:5000/allArtWorks");
+    const response = await fetch(
+      "https://artsell-server-siamcsejnu.vercel.app/allArtWorks"
+    );
     return response.json();
   });
   return [allArtWorks, isLoading, refetch];

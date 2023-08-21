@@ -21,16 +21,23 @@ const SingleArtWork = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [isClient] = useClient();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
   const handleOnClose = () => {
     setShowModal(false);
   };
 
   const { id } = useParams();
-  const [allArtWorks, isLoading] = useAllArtWorks();
+  const [allArtWorks, isLoading, refetch] = useAllArtWorks();
   const [allUsers, isLoadingUsers] = useAllUsers();
-  if (isLoadingUsers || isLoading) {
+  if (
+    isLoadingUsers ||
+    isLoading ||
+    loading ||
+    !allArtWorks ||
+    !allUsers ||
+    !user
+  ) {
     return <Loader></Loader>;
   }
 
@@ -108,7 +115,7 @@ const SingleArtWork = () => {
                 className="text-lime-600 text-lg tooltip tooltip-right"
                 data-tip="size"
               >
-                {selectedArt.art_size ? selectedArt.art_size : "200w x 200h"}
+                {selectedArt?.art_size ? selectedArt.art_size : "200w x 200h"}
               </h3>
             </div>
             <div className="flex items-center gap-2">
@@ -184,6 +191,7 @@ const SingleArtWork = () => {
               visible={showModal}
               selectedArt={selectedArt}
               user={user}
+              refetch={refetch}
             ></BiddingModal>
           </div>
         </div>
@@ -195,7 +203,7 @@ const SingleArtWork = () => {
               alt=""
             />
             <h2 className="text-2xl text-slate-800 font-semibold  ">
-              More From {selectedArt.owner_name}{" "}
+              More From {selectedArt?.owner_name}{" "}
             </h2>
           </div>
           <div>

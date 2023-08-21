@@ -65,7 +65,7 @@ const AddArts = () => {
           };
           // console.log(newArt);
 
-          fetch("http://localhost:5000/allArtWorks", {
+          fetch("https://artsell-server-siamcsejnu.vercel.app/allArtWorks", {
             method: "POST",
             headers: {
               "content-type": "application/json",

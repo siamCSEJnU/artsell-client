@@ -26,9 +26,12 @@ const MangeUsers = () => {
       confirmButtonText: "Yes, make admin!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/users/admin/${user._id}`, {
-          method: "PATCH",
-        })
+        fetch(
+          `https://artsell-server-siamcsejnu.vercel.app/users/admin/${user._id}`,
+          {
+            method: "PATCH",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount) {
@@ -56,9 +59,12 @@ const MangeUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/allUsers/delete/${userId}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://artsell-server-siamcsejnu.vercel.app/allUsers/delete/${userId}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount) {

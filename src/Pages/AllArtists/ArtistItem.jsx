@@ -16,7 +16,7 @@ const ArtistItem = ({ item }) => {
 
   const handleFollowUnfollow = (action, artistId) => {
     fetch(
-      `http://localhost:5000/followers/${action}/${artistId}/${user?.email}`,
+      `https://artsell-server-siamcsejnu.vercel.app/followers/${action}/${artistId}/${user?.email}`,
       {
         method: "PATCH",
       }

@@ -23,13 +23,16 @@ const EditArts = ({ artWork, visible, handleEditModalClsoe }) => {
       validity: parseInt(event.target.validity.value),
     };
 
-    fetch(`http://localhost:5000/allArtWorks/update/${artWork._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedArt),
-    })
+    fetch(
+      `https://artsell-server-siamcsejnu.vercel.app/allArtWorks/update/${artWork._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedArt),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {

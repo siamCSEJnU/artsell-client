@@ -53,9 +53,12 @@ const MyArts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/allArtWorks/delete/${Id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://artsell-server-siamcsejnu.vercel.app/allArtWorks/delete/${Id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount) {
